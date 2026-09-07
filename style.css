@@ -108,6 +108,12 @@ a:hover { color: var(--ink); }
 .name span { display: block; }
 .name span:last-child { color: rgba(255,255,255,.52); }
 
+.name .degree {
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  margin-top: 0.5rem;
+}
+
 .dim {
   display: block;
   width: 100%;
