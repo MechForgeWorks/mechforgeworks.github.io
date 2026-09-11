@@ -95,11 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(() => {
 
-          /*
-           * Autoplay was blocked.
-           * Contact Me will start the music.
-           */
-
           updateMusicControl();
 
         });
@@ -120,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
       () => {
 
         /*
-         * Start music from the user's
-         * click if autoplay was blocked.
+         * Start music from the user's click
+         * if autoplay was blocked.
          */
 
         if (
@@ -150,35 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         contactWrapper.classList.add('open');
 
-        toggleBtn.setAttribute(
-          'aria-expanded',
-          'true'
-        );
+
+        /*
+         * Remove the Contact Me button
+         * completely.
+         */
+
+        toggleBtn.remove();
 
 
         /*
-         * Hide the Contact Me button.
+         * Put the cursor in the name field
+         * after the form has opened.
          */
 
-        toggleBtn.classList.add('hidden');
+        setTimeout(() => {
 
+          if (nameField) {
+            nameField.focus();
+          }
 
-        /*
-         * Wait for the form to become visible,
-         * then put the cursor in the name field.
-         */
-
-        requestAnimationFrame(() => {
-
-          requestAnimationFrame(() => {
-
-            if (nameField) {
-              nameField.focus();
-            }
-
-          });
-
-        });
+        }, 500);
 
       }
     );
