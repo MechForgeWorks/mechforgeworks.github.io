@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactWrapper =
     document.getElementById('contact-wrapper');
 
+  const contactForm =
+    document.getElementById('contact-form');
+
   const musicControl =
     document.getElementById('music-control');
 
@@ -41,7 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     siteAudio.volume = 0.3;
 
     /*
-     * Autoplay attempt.
+     * Attempt audible autoplay.
+     *
+     * Most browsers will block this unless
+     * the visitor has previously interacted
+     * with the site or granted permission.
      */
 
     const autoplayAttempt =
@@ -53,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(() => {
 
           musicStarted = true;
+          updateMusicControl();
 
         })
         .catch(() => {
@@ -63,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
            * Contact Me will start the music
            * when the visitor clicks it.
            */
+
+          updateMusicControl();
 
         });
     }
@@ -76,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
    *
    * Contact Me opens the form.
    *
-   * It does NOT close the form again.
+   * The button then disappears because it
+   * is no longer needed.
    */
 
   if (toggleBtn && contactWrapper) {
@@ -86,9 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       () => {
 
         /*
-         * If autoplay was blocked, use this
-         * genuine user interaction to start
-         * the music.
+         * MUSIC FALLBACK
          */
 
         if (
@@ -100,15 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(() => {
 
               musicStarted = true;
-
               updateMusicControl();
 
             })
             .catch(() => {
+
               /*
                * Music failed to start.
                * The contact form still opens.
                */
+
+              updateMusicControl();
+
             });
         }
 
@@ -124,14 +136,27 @@ document.addEventListener('DOMContentLoaded', () => {
           'true'
         );
 
+
         /*
-         * Contact Me remains the label.
-         *
-         * There is deliberately no
-         * "Close Contact Form" option.
+         * Hide the Contact Me button.
          */
 
-        toggleBtn.textContent = 'Contact Me';
+        toggleBtn.style.display = 'none';
+
+
+        /*
+         * Focus the name field after the
+         * form animation has started.
+         */
+
+        setTimeout(() => {
+
+          document
+            .getElementById('f-name')
+            ?.focus();
+
+        }, 350);
+
       }
     );
   }
@@ -234,5 +259,45 @@ document.addEventListener('DOMContentLoaded', () => {
       updateMusicControl
     );
   }
+
+
+  /*
+   * ========================================
+   * FORM SUBMISSION
+   * ========================================
+   *
+   * Prevent accidental double submissions.
+   */
+
+  if (contactForm) {
+
+    contactForm.addEventListener(
+      'submit',
+      () => {
+
+        const submitBtn =
+          contactForm.querySelector(
+            '.submit-btn'
+          );
+
+        if (submitBtn) {
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+
+        }
+
+      }
+    );
+  }
+
+
+  /*
+   * ========================================
+   * INITIAL MUSIC CONTROL STATE
+   * ========================================
+   */
+
+  updateMusicControl();
 
 });
