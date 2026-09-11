@@ -53,7 +53,9 @@ h2 {
   margin-bottom: 1rem;
 }
 
-/* WIP / Music Button */
+/* ========================================
+   WIP / MUSIC BUTTON
+   ======================================== */
 
 .badge {
   appearance: none;
@@ -64,34 +66,41 @@ h2 {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
   background: rgba(255, 255, 255, 0.1);
   color: #94a3b8;
-  border-radius: 20px;
-  margin-bottom: 0.5rem;
+
   border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+
+  margin-bottom: 0.5rem;
+
   cursor: pointer;
+
   transition:
     background 0.3s ease,
     border-color 0.3s ease,
+    color 0.3s ease,
     transform 0.2s ease;
 }
 
 .badge:hover {
   background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .badge:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
+
+/* Music playing state */
 
 .badge.playing {
-  animation: music-pulse 2s ease-in-out infinite;
-}
+  background: rgba(96, 165, 250, 0.15);
+  border-color: rgba(96, 165, 250, 0.35);
+  color: #bfdbfe;
 
-.badge.playing::after {
-  content: " ♪";
-  margin-left: 0.25rem;
+  animation: music-pulse 2s ease-in-out infinite;
 }
 
 @keyframes music-pulse {
@@ -105,19 +114,27 @@ h2 {
   }
 }
 
-/* Contact Button */
+/* ========================================
+   CONTACT BUTTON
+   ======================================== */
 
 .btn-toggle {
   margin-top: 0.5rem;
+
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.65rem 1.25rem;
   border-radius: 8px;
+
+  padding: 0.65rem 1.25rem;
+
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 600;
+
   cursor: pointer;
+
   transition:
     background 0.2s ease,
     transform 0.1s ease;
@@ -131,7 +148,9 @@ h2 {
   transform: scale(0.98);
 }
 
-/* Keyboard Focus */
+/* ========================================
+   KEYBOARD FOCUS
+   ======================================== */
 
 .btn-toggle:focus-visible,
 .badge:focus-visible,
@@ -142,31 +161,40 @@ h2 {
   outline-offset: 2px;
 }
 
-/* Form Container */
+/* ========================================
+   FORM CONTAINER
+   ======================================== */
 
 .form-wrapper {
   max-height: 0;
   overflow: hidden;
+
   opacity: 0;
+
+  margin-top: 0;
+
+  text-align: left;
+
   transition:
     max-height 0.4s cubic-bezier(0, 1, 0, 1),
     opacity 0.3s ease,
     margin-top 0.3s ease;
-  text-align: left;
-  margin-top: 0;
 }
 
 .form-wrapper.open {
   max-height: 600px;
   opacity: 1;
   margin-top: 1.25rem;
+
   transition:
     max-height 0.5s ease-in-out,
     opacity 0.4s ease 0.1s,
     margin-top 0.3s ease;
 }
 
-/* Form Fields */
+/* ========================================
+   FORM FIELDS
+   ======================================== */
 
 .field {
   margin-bottom: 1rem;
@@ -174,9 +202,12 @@ h2 {
 
 .field label {
   display: block;
+
   font-size: 0.75rem;
   color: #cbd5e1;
+
   margin-bottom: 0.35rem;
+
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -184,14 +215,21 @@ h2 {
 .field input,
 .field textarea {
   width: 100%;
+
   padding: 0.65rem 0.85rem;
+
   background: rgba(0, 0, 0, 0.25);
+
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
+
   color: #ffffff;
+
   font-family: inherit;
   font-size: 0.9rem;
+
   outline: none;
+
   transition: border-color 0.2s ease;
 }
 
@@ -205,36 +243,54 @@ h2 {
   min-height: 100px;
 }
 
+/* ========================================
+   SUBMIT BUTTON
+   ======================================== */
+
 .submit-btn {
   width: 100%;
+
   background: #2563eb;
   color: #ffffff;
+
   border: none;
-  padding: 0.75rem;
   border-radius: 6px;
+
+  padding: 0.75rem;
+
   font-family: inherit;
   font-weight: 600;
   font-size: 0.9rem;
+
   cursor: pointer;
-  transition: background 0.2s ease;
+
   margin-top: 0.5rem;
+
+  transition: background 0.2s ease;
 }
 
 .submit-btn:hover {
   background: #1d4ed8;
 }
 
-/* Honeypot */
+/* ========================================
+   HONEYPOT
+   ======================================== */
 
 .hp {
   position: absolute;
+
   left: -10000px;
+
   width: 1px;
   height: 1px;
+
   overflow: hidden;
 }
 
-/* Reduced Motion */
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .badge.playing {
