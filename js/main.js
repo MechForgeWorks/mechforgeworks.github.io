@@ -1,9 +1,13 @@
 'use strict';
 
-const toggleBtn = document.getElementById('toggle-btn');
-const contactWrapper = document.getElementById('contact-wrapper');
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('toggle-btn');
+  const contactWrapper = document.getElementById('contact-wrapper');
 
-if (toggleBtn && contactWrapper) {
+  if (!toggleBtn || !contactWrapper) {
+    return;
+  }
+
   toggleBtn.addEventListener('click', () => {
     const isOpen = contactWrapper.classList.toggle('open');
 
@@ -12,4 +16,4 @@ if (toggleBtn && contactWrapper) {
       ? 'Close Contact Form'
       : 'Contact Me';
   });
-}
+});
