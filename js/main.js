@@ -3,12 +3,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const toggleBtn = document.getElementById('toggle-btn');
   const contactWrapper = document.getElementById('contact-wrapper');
-
   const musicToggle = document.getElementById('music-toggle');
   const siteAudio = document.getElementById('site-audio');
 
   /*
-   * Contact form toggle
+   * Contact form
    */
 
   if (toggleBtn && contactWrapper) {
@@ -23,82 +22,78 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*
-   * WIP badge / background music
+   * Music
    */
 
-  if (musicToggle && siteAudio) {
-    siteAudio.volume = 0.3;
-
-    const setMusicState = (playing) => {
-      musicToggle.classList.toggle('playing', playing);
-      musicToggle.setAttribute('aria-pressed', String(playing));
-      musicToggle.setAttribute(
-        'aria-label',
-        playing
-          ? 'Pause background music'
-          : 'Play background music'
-      );
-    };
-
-    /*
-     * Try to autoplay when the page loads.
-     *
-     * Browsers may block audible autoplay.
-     * If they do, the first click on the WIP badge
-     * will start the music.
-     */
-
-    siteAudio.play()
-      .then(() => {
-        setMusicState(true);
-      })
-      .catch((error) => {
-        console.info(
-          'Autoplay was blocked by the browser. Click the WIP badge to start the music.',
-          error
-        );
-
-        setMusicState(false);
-      });
-
-    /*
-     * WIP badge = play / pause
-     */
-
-    musicToggle.addEventListener('click', async () => {
-      if (siteAudio.paused) {
-        try {
-          await siteAudio.play();
-          setMusicState(true);
-        } catch (error) {
-          console.error('Unable to play audio:', error);
-          setMusicState(false);
-        }
-      } else {
-        siteAudio.pause();
-        setMusicState(false);
-      }
-    });
-
-    /*
-     * Track finished
-     */
-
-    siteAudio.addEventListener('ended', () => {
-      setMusicState(false);
-    });
-
-    /*
-     * Audio failed to load
-     */
-
-    siteAudio.addEventListener('error', () => {
-      console.error(
-        'Audio failed to load:',
-        siteAudio.error
-      );
-
-      setMusicState(false);
-    });
+  if (!musicToggle || !siteAudio) {
+    console.error('Music elements not found.');
+    return;
   }
+
+  siteAudio.volume = 0.3;
+
+  function updateMusicButton() {
+    const playing = !siteAudio.paused;
+
+    musicToggle.classList.toggle('playing', playing);
+    musicToggle.setAttribute(
+      'aria-pressed',
+      String(playing)
+    );
+
+    musicToggle.textContent = playing
+      ? 'Work In Progress ♪'
+      : 'Work In Progress';
+  }
+
+  /*
+   * Try autoplay.
+   * Browsers may block audible autoplay.
+   */
+
+  siteAudio.play()
+    .then(() => {
+      console.log('Music autoplay started.');
+      updateMusicButton();
+    })
+    .catch((error) => {
+      console.log('Autoplay blocked:', error);
+      updateMusicButton();
+    });
+
+  /*
+   * WIP button = play / pause
+   */
+
+  musicToggle.addEventListener('click', () => {
+    if (siteAudio.paused) {
+      siteAudio.play()
+        .then(() => {
+          console.log('Music started.');
+          updateMusicButton();
+        })
+        .catch((error) => {
+          console.error('Music failed to play:', error);
+        });
+    } else {
+      siteAudio.pause();
+      console.log('Music paused.');
+      updateMusicButton();
+    }
+  });
+
+  /*
+   * Keep button state synced with audio.
+   */
+
+  siteAudio.addEventListener('play', updateMusicButton);
+  siteAudio.addEventListener('pause', updateMusicButton);
+
+  siteAudio.addEventListener('ended', () => {
+    updateMusicButton();
+  });
+
+  siteAudio.addEventListener('error', () => {
+    console.error('Audio loading error:', siteAudio.error);
+  });
 });
