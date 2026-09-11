@@ -4,24 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
 
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="description" content="Scott Collins - Website under construction.">
-  <meta name="theme-color" content="#0E2F49">
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin">
+
+  <meta
+    name="description"
+    content="Scott Collins - Website under construction.">
+
+  <meta
+    name="theme-color"
+    content="#0E2F49">
 
   <title>Scott Collins</title>
 
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="./js/main.js" defer></script>
+  <link
+    rel="icon"
+    href="favicon.svg"
+    type="image/svg+xml">
+
+  <link
+    rel="stylesheet"
+    href="css/style.css?v=2">
+
+  <script
+    src="js/main.js?v=2"
+    defer></script>
 </head>
 
 <body>
 
   <main class="card">
+
     <h1>Scott Collins MEng</h1>
+
     <h2>Engineer</h2>
 
     <button
@@ -44,7 +64,10 @@
       </button>
     </div>
 
-    <div class="form-wrapper" id="contact-wrapper">
+    <div
+      class="form-wrapper"
+      id="contact-wrapper">
+
       <form
         id="contact-form"
         action="https://formspree.io/f/mbgjzpvz"
@@ -52,6 +75,7 @@
 
         <p class="field">
           <label for="f-name">Your name</label>
+
           <input
             id="f-name"
             name="name"
@@ -63,6 +87,7 @@
 
         <p class="field">
           <label for="f-email">Email</label>
+
           <input
             id="f-email"
             name="email"
@@ -74,6 +99,7 @@
 
         <p class="field">
           <label for="f-msg">Message</label>
+
           <textarea
             id="f-msg"
             name="message"
@@ -83,8 +109,12 @@
         </p>
 
         <!-- Honeypot spam protection -->
-        <p class="hp" aria-hidden="true">
+        <p
+          class="hp"
+          aria-hidden="true">
+
           <label for="f-co">Company</label>
+
           <input
             id="f-co"
             name="_gotcha"
@@ -94,19 +124,29 @@
         </p>
 
         <div class="submit-row">
-          <button type="submit" class="submit-btn">
+
+          <button
+            type="submit"
+            class="submit-btn">
             Send Message
           </button>
+
         </div>
 
       </form>
+
     </div>
+
   </main>
 
+  <!-- Background music -->
   <audio
     id="site-audio"
-    src="audio/downtempo-inspiring-hip-hop.mp3"
-    preload="none">
+    autoplay
+    preload="auto">
+    <source
+      src="audio/downtempo-inspiring-hip-hop.mp3"
+      type="audio/mpeg">
   </audio>
 
 </body>
