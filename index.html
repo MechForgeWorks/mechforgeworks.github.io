@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
 
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="description" content="Scott Collins - Website under construction.">
@@ -15,7 +15,7 @@
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js" defer></script>
+  <script src="./js/main.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +24,14 @@
     <h1>Scott Collins MEng</h1>
     <h2>Engineer</h2>
 
-    <div class="badge">Work In Progress</div>
+    <button
+      type="button"
+      class="badge"
+      id="music-toggle"
+      aria-label="Play background music"
+      aria-pressed="false">
+      Work In Progress
+    </button>
 
     <div>
       <button
@@ -95,6 +102,12 @@
       </form>
     </div>
   </main>
+
+  <audio
+    id="site-audio"
+    src="audio/downtempo-inspiring-hip-hop.mp3"
+    preload="none">
+  </audio>
 
 </body>
 </html>
