@@ -330,6 +330,61 @@ h2 {
 
 
 /* ========================================
+   MUSIC CONTROL
+   ======================================== */
+
+.music-control {
+  display: block;
+
+  margin: 1rem auto 0;
+
+  padding: 0.4rem 0.75rem;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  border: none;
+
+  font-family: inherit;
+
+  font-size: 0.75rem;
+
+  font-weight: 500;
+
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  opacity: 0.8;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.music-control:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.music-control:focus-visible {
+  outline:
+    2px solid #60a5fa;
+
+  outline-offset: 3px;
+
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .music-control {
+    transition: none;
+  }
+}
+
+/* ========================================
    REDUCED MOTION
    ======================================== */
 
