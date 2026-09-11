@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactWrapper =
     document.getElementById('contact-wrapper');
 
+  const musicControl =
+    document.getElementById('music-control');
+
   const siteAudio =
     document.getElementById('site-audio');
 
@@ -35,31 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (siteAudio) {
 
-    /*
-     * Keep the background music subtle.
-     */
-
     siteAudio.volume = 0.3;
 
-
     /*
-     * If autoplay works, remember that
-     * playback has already started.
-     */
-
-    siteAudio.addEventListener(
-      'play',
-      () => {
-        musicStarted = true;
-      }
-    );
-
-
-    /*
-     * Attempt audible autoplay.
-     *
-     * The browser may reject this with
-     * NotAllowedError. That is normal.
+     * Autoplay attempt.
      */
 
     const autoplayAttempt =
@@ -73,25 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
           musicStarted = true;
 
         })
-        .catch((error) => {
+        .catch(() => {
 
           /*
-           * Autoplay was refused.
+           * Browser blocked autoplay.
            *
-           * We deliberately do not show a
-           * music control.
-           *
-           * The Contact Me click below will
-           * become our user-gesture fallback.
+           * Contact Me will start the music
+           * when the visitor clicks it.
            */
-
-          if (error.name !== 'NotAllowedError') {
-
-            console.warn(
-              'Background music could not start:',
-              error
-            );
-          }
 
         });
     }
@@ -100,8 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /*
    * ========================================
-   * CONTACT BUTTON
+   * CONTACT FORM
    * ========================================
+   *
+   * Contact Me opens the form.
+   *
+   * It does NOT close the form again.
    */
 
   if (toggleBtn && contactWrapper) {
@@ -111,18 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
       () => {
 
         /*
-         * --------------------------------
-         * MUSIC FALLBACK
-         * --------------------------------
-         *
-         * If autoplay was blocked, this
-         * click is a genuine user gesture.
-         *
-         * Start the music here.
-         *
-         * We do this BEFORE opening the form
-         * so the play() call occurs directly
-         * inside the click event.
+         * If autoplay was blocked, use this
+         * genuine user interaction to start
+         * the music.
          */
 
         if (
@@ -135,38 +101,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
               musicStarted = true;
 
+              updateMusicControl();
+
             })
             .catch(() => {
-
               /*
-               * If even a user-initiated play
-               * fails, leave the contact form
-               * working normally.
+               * Music failed to start.
+               * The contact form still opens.
                */
-
             });
         }
 
 
         /*
-         * --------------------------------
-         * CONTACT FORM
-         * --------------------------------
+         * Open the contact form.
          */
 
-        const isOpen =
-          contactWrapper.classList.toggle('open');
+        contactWrapper.classList.add('open');
 
         toggleBtn.setAttribute(
           'aria-expanded',
-          String(isOpen)
+          'true'
         );
 
-        toggleBtn.textContent =
-          isOpen
-            ? 'Close Contact Form'
-            : 'Contact Me';
+        /*
+         * Contact Me remains the label.
+         *
+         * There is deliberately no
+         * "Close Contact Form" option.
+         */
+
+        toggleBtn.textContent = 'Contact Me';
       }
+    );
+  }
+
+
+  /*
+   * ========================================
+   * MUSIC CONTROL
+   * ========================================
+   */
+
+  function updateMusicControl() {
+
+    if (!musicControl || !siteAudio) {
+      return;
+    }
+
+    const playing =
+      !siteAudio.paused &&
+      !siteAudio.ended;
+
+    musicControl.textContent =
+      playing
+        ? 'Pause music'
+        : 'Play music';
+
+    musicControl.setAttribute(
+      'aria-label',
+      playing
+        ? 'Pause background music'
+        : 'Play background music'
+    );
+
+    musicControl.setAttribute(
+      'aria-pressed',
+      String(!playing)
+    );
+  }
+
+
+  /*
+   * ========================================
+   * PAUSE / PLAY MUSIC
+   * ========================================
+   */
+
+  if (musicControl && siteAudio) {
+
+    musicControl.addEventListener(
+      'click',
+      () => {
+
+        if (siteAudio.paused) {
+
+          siteAudio.play()
+            .then(() => {
+
+              musicStarted = true;
+              updateMusicControl();
+
+            })
+            .catch(() => {
+
+              updateMusicControl();
+
+            });
+
+        } else {
+
+          siteAudio.pause();
+
+          updateMusicControl();
+        }
+      }
+    );
+
+
+    /*
+     * Keep the control synchronized with
+     * the actual audio state.
+     */
+
+    siteAudio.addEventListener(
+      'play',
+      () => {
+
+        musicStarted = true;
+        updateMusicControl();
+
+      }
+    );
+
+    siteAudio.addEventListener(
+      'pause',
+      updateMusicControl
+    );
+
+    siteAudio.addEventListener(
+      'ended',
+      updateMusicControl
     );
   }
 
