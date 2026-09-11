@@ -3,155 +3,171 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /*
-   * CONTACT FORM
+   * ========================================
+   * ELEMENTS
+   * ========================================
    */
 
-  const toggleBtn = document.getElementById('toggle-btn');
-  const contactWrapper = document.getElementById('contact-wrapper');
+  const toggleBtn =
+    document.getElementById('toggle-btn');
 
-  if (toggleBtn && contactWrapper) {
-
-    toggleBtn.addEventListener('click', () => {
-
-      const isOpen =
-        contactWrapper.classList.toggle('open');
-
-      toggleBtn.setAttribute(
-        'aria-expanded',
-        String(isOpen)
-      );
-
-      toggleBtn.textContent =
-        isOpen
-          ? 'Close Contact Form'
-          : 'Contact Me';
-    });
-  }
-
-
-  /*
-   * BACKGROUND MUSIC
-   */
-
-  const musicToggle =
-    document.getElementById('music-toggle');
+  const contactWrapper =
+    document.getElementById('contact-wrapper');
 
   const siteAudio =
     document.getElementById('site-audio');
 
-  if (!musicToggle || !siteAudio) {
-    return;
-  }
+
+  /*
+   * ========================================
+   * MUSIC STATE
+   * ========================================
+   */
+
+  let musicStarted = false;
 
 
   /*
-   * Set volume.
-   *
-   * This does NOT bypass autoplay restrictions.
-   * It simply sets the volume once playback
-   * has been permitted by the browser.
+   * ========================================
+   * MUSIC
+   * ========================================
    */
 
-  siteAudio.volume = 0.3;
+  if (siteAudio) {
+
+    /*
+     * Keep the background music subtle.
+     */
+
+    siteAudio.volume = 0.3;
 
 
-  /*
-   * Keep the WIP button synchronized
-   * with the real audio state.
-   */
+    /*
+     * If autoplay works, remember that
+     * playback has already started.
+     */
 
-  function updateMusicButton() {
-
-    const playing = !siteAudio.paused;
-
-    musicToggle.classList.toggle(
-      'playing',
-      playing
+    siteAudio.addEventListener(
+      'play',
+      () => {
+        musicStarted = true;
+      }
     );
 
-    musicToggle.setAttribute(
-      'aria-pressed',
-      String(playing)
-    );
 
-    musicToggle.setAttribute(
-      'aria-label',
-      playing
-        ? 'Pause background music'
-        : 'Play background music'
-    );
+    /*
+     * Attempt audible autoplay.
+     *
+     * The browser may reject this with
+     * NotAllowedError. That is normal.
+     */
 
-    musicToggle.textContent =
-      playing
-        ? 'Work In Progress ♪'
-        : 'Work In Progress';
-  }
+    const autoplayAttempt =
+      siteAudio.play();
 
+    if (autoplayAttempt) {
 
-  /*
-   * Try to start the music automatically.
-   *
-   * Modern browsers may reject this because
-   * audible autoplay is commonly blocked.
-   *
-   * That is expected behaviour.
-   */
-
-  siteAudio.play()
-    .then(() => {
-      updateMusicButton();
-    })
-    .catch(() => {
-      updateMusicButton();
-    });
-
-
-  /*
-   * WIP BUTTON
-   *
-   * Click once  = play
-   * Click again = pause
-   */
-
-  musicToggle.addEventListener('click', () => {
-
-    if (siteAudio.paused) {
-
-      siteAudio.play()
+      autoplayAttempt
         .then(() => {
-          updateMusicButton();
+
+          musicStarted = true;
+
         })
-        .catch(() => {
-          updateMusicButton();
+        .catch((error) => {
+
+          /*
+           * Autoplay was refused.
+           *
+           * We deliberately do not show a
+           * music control.
+           *
+           * The Contact Me click below will
+           * become our user-gesture fallback.
+           */
+
+          if (error.name !== 'NotAllowedError') {
+
+            console.warn(
+              'Background music could not start:',
+              error
+            );
+          }
+
         });
-
-    } else {
-
-      siteAudio.pause();
-
-      updateMusicButton();
     }
-  });
+  }
 
 
   /*
-   * Keep UI synchronized if the browser
-   * changes the playback state.
+   * ========================================
+   * CONTACT BUTTON
+   * ========================================
    */
 
-  siteAudio.addEventListener(
-    'play',
-    updateMusicButton
-  );
+  if (toggleBtn && contactWrapper) {
 
-  siteAudio.addEventListener(
-    'pause',
-    updateMusicButton
-  );
+    toggleBtn.addEventListener(
+      'click',
+      () => {
 
-  siteAudio.addEventListener(
-    'ended',
-    updateMusicButton
-  );
+        /*
+         * --------------------------------
+         * MUSIC FALLBACK
+         * --------------------------------
+         *
+         * If autoplay was blocked, this
+         * click is a genuine user gesture.
+         *
+         * Start the music here.
+         *
+         * We do this BEFORE opening the form
+         * so the play() call occurs directly
+         * inside the click event.
+         */
+
+        if (
+          siteAudio &&
+          !musicStarted
+        ) {
+
+          siteAudio.play()
+            .then(() => {
+
+              musicStarted = true;
+
+            })
+            .catch(() => {
+
+              /*
+               * If even a user-initiated play
+               * fails, leave the contact form
+               * working normally.
+               */
+
+            });
+        }
+
+
+        /*
+         * --------------------------------
+         * CONTACT FORM
+         * --------------------------------
+         */
+
+        const isOpen =
+          contactWrapper.classList.toggle('open');
+
+        toggleBtn.setAttribute(
+          'aria-expanded',
+          String(isOpen)
+        );
+
+        toggleBtn.textContent =
+          isOpen
+            ? 'Close Contact Form'
+            : 'Contact Me';
+      }
+    );
+  }
 
 });
