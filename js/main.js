@@ -1,99 +1,157 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.getElementById('toggle-btn');
-  const contactWrapper = document.getElementById('contact-wrapper');
-  const musicToggle = document.getElementById('music-toggle');
-  const siteAudio = document.getElementById('site-audio');
 
   /*
-   * Contact form
+   * CONTACT FORM
    */
 
-  if (toggleBtn && contactWrapper) {
-    toggleBtn.addEventListener('click', () => {
-      const isOpen = contactWrapper.classList.toggle('open');
+  const toggleBtn = document.getElementById('toggle-btn');
+  const contactWrapper = document.getElementById('contact-wrapper');
 
-      toggleBtn.setAttribute('aria-expanded', String(isOpen));
-      toggleBtn.textContent = isOpen
-        ? 'Close Contact Form'
-        : 'Contact Me';
+  if (toggleBtn && contactWrapper) {
+
+    toggleBtn.addEventListener('click', () => {
+
+      const isOpen =
+        contactWrapper.classList.toggle('open');
+
+      toggleBtn.setAttribute(
+        'aria-expanded',
+        String(isOpen)
+      );
+
+      toggleBtn.textContent =
+        isOpen
+          ? 'Close Contact Form'
+          : 'Contact Me';
     });
   }
 
+
   /*
-   * Music
+   * BACKGROUND MUSIC
    */
 
+  const musicToggle =
+    document.getElementById('music-toggle');
+
+  const siteAudio =
+    document.getElementById('site-audio');
+
   if (!musicToggle || !siteAudio) {
-    console.error('Music elements not found.');
     return;
   }
 
+
+  /*
+   * Set volume.
+   *
+   * This does NOT bypass autoplay restrictions.
+   * It simply sets the volume once playback
+   * has been permitted by the browser.
+   */
+
   siteAudio.volume = 0.3;
 
+
+  /*
+   * Keep the WIP button synchronized
+   * with the real audio state.
+   */
+
   function updateMusicButton() {
+
     const playing = !siteAudio.paused;
 
-    musicToggle.classList.toggle('playing', playing);
+    musicToggle.classList.toggle(
+      'playing',
+      playing
+    );
+
     musicToggle.setAttribute(
       'aria-pressed',
       String(playing)
     );
 
-    musicToggle.textContent = playing
-      ? 'Work In Progress ♪'
-      : 'Work In Progress';
+    musicToggle.setAttribute(
+      'aria-label',
+      playing
+        ? 'Pause background music'
+        : 'Play background music'
+    );
+
+    musicToggle.textContent =
+      playing
+        ? 'Work In Progress ♪'
+        : 'Work In Progress';
   }
 
+
   /*
-   * Try autoplay.
-   * Browsers may block audible autoplay.
+   * Try to start the music automatically.
+   *
+   * Modern browsers may reject this because
+   * audible autoplay is commonly blocked.
+   *
+   * That is expected behaviour.
    */
 
   siteAudio.play()
     .then(() => {
-      console.log('Music autoplay started.');
       updateMusicButton();
     })
-    .catch((error) => {
-      console.log('Autoplay blocked:', error);
+    .catch(() => {
       updateMusicButton();
     });
 
+
   /*
-   * WIP button = play / pause
+   * WIP BUTTON
+   *
+   * Click once  = play
+   * Click again = pause
    */
 
   musicToggle.addEventListener('click', () => {
+
     if (siteAudio.paused) {
+
       siteAudio.play()
         .then(() => {
-          console.log('Music started.');
           updateMusicButton();
         })
-        .catch((error) => {
-          console.error('Music failed to play:', error);
+        .catch(() => {
+          updateMusicButton();
         });
+
     } else {
+
       siteAudio.pause();
-      console.log('Music paused.');
+
       updateMusicButton();
     }
   });
 
+
   /*
-   * Keep button state synced with audio.
+   * Keep UI synchronized if the browser
+   * changes the playback state.
    */
 
-  siteAudio.addEventListener('play', updateMusicButton);
-  siteAudio.addEventListener('pause', updateMusicButton);
+  siteAudio.addEventListener(
+    'play',
+    updateMusicButton
+  );
 
-  siteAudio.addEventListener('ended', () => {
-    updateMusicButton();
-  });
+  siteAudio.addEventListener(
+    'pause',
+    updateMusicButton
+  );
 
-  siteAudio.addEventListener('error', () => {
-    console.error('Audio loading error:', siteAudio.error);
-  });
+  siteAudio.addEventListener(
+    'ended',
+    updateMusicButton
+  );
+
 });
