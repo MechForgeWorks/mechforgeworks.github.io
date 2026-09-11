@@ -29,10 +29,10 @@
 
   <link
     rel="stylesheet"
-    href="css/style.css?v=2">
+    href="css/style.css?v=4">
 
   <script
-    src="js/main.js?v=2"
+    src="js/main.js?v=4"
     defer></script>
 </head>
 
@@ -44,14 +44,13 @@
 
     <h2>Engineer</h2>
 
-    <button
-      type="button"
-      class="badge"
-      id="music-toggle"
-      aria-label="Play background music"
-      aria-pressed="false">
+    <!--
+      WIP is intentionally just a visual badge.
+      It is no longer a music control.
+    -->
+    <span class="badge">
       Work In Progress
-    </button>
+    </span>
 
     <div>
       <button
@@ -139,14 +138,24 @@
 
   </main>
 
-  <!-- Background music -->
+
+  <!--
+    Background music.
+
+    We ask the browser to autoplay.
+    Audible autoplay remains subject to
+    the browser's autoplay policy.
+  -->
+
   <audio
     id="site-audio"
     autoplay
     preload="auto">
+
     <source
       src="audio/downtempo-inspiring-hip-hop.mp3"
       type="audio/mpeg">
+
   </audio>
 
 </body>
