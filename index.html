@@ -53,59 +53,95 @@
     </span>
 
     <div>
+  <button
+    type="button"
+    class="btn-toggle"
+    id="toggle-btn"
+    aria-expanded="false"
+    aria-controls="contact-wrapper">
+    Contact Me
+  </button>
+</div>
+
+<div
+  class="form-wrapper"
+  id="contact-wrapper">
+
+  <form
+    id="contact-form"
+    action="https://formspree.io/f/mbgjzpvz"
+    method="POST">
+
+    <p class="field">
+      <label for="f-name">Your name</label>
+
+      <input
+        id="f-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        maxlength="100"
+        required>
+    </p>
+
+    <p class="field">
+      <label for="f-email">Email</label>
+
+      <input
+        id="f-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        maxlength="254"
+        required>
+    </p>
+
+    <p class="field">
+      <label for="f-msg">Message</label>
+
+      <textarea
+        id="f-msg"
+        name="message"
+        rows="4"
+        maxlength="3000"
+        required></textarea>
+    </p>
+
+    <p
+      class="hp"
+      aria-hidden="true">
+
+      <label for="f-co">Company</label>
+
+      <input
+        id="f-co"
+        name="_gotcha"
+        type="text"
+        tabindex="-1"
+        autocomplete="off">
+    </p>
+
+    <div class="submit-row">
+
       <button
-        type="button"
-        class="btn-toggle"
-        id="toggle-btn"
-        aria-expanded="false"
-        aria-controls="contact-wrapper">
-        Contact Me
+        type="submit"
+        class="submit-btn">
+        Send Message
       </button>
+
     </div>
 
-    <div
-      class="form-wrapper"
-      id="contact-wrapper">
+  </form>
 
-      <form
-        id="contact-form"
-        action="https://formspree.io/f/mbgjzpvz"
-        method="POST">
+  <button
+    type="button"
+    class="music-control"
+    id="music-control"
+    aria-label="Pause background music">
+    Pause music
+  </button>
 
-        <p class="field">
-          <label for="f-name">Your name</label>
-
-          <input
-            id="f-name"
-            name="name"
-            type="text"
-            autocomplete="name"
-            maxlength="100"
-            required>
-        </p>
-
-        <p class="field">
-          <label for="f-email">Email</label>
-
-          <input
-            id="f-email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            maxlength="254"
-            required>
-        </p>
-
-        <p class="field">
-          <label for="f-msg">Message</label>
-
-          <textarea
-            id="f-msg"
-            name="message"
-            rows="4"
-            maxlength="3000"
-            required></textarea>
-        </p>
+</div>
 
         <!-- Honeypot spam protection -->
         <p
