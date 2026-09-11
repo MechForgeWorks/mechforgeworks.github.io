@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactForm =
     document.getElementById('contact-form');
 
+  const nameField =
+    document.getElementById('f-name');
+
   const musicControl =
     document.getElementById('music-control');
 
@@ -35,136 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /*
    * ========================================
-   * MUSIC
-   * ========================================
-   */
-
-  if (siteAudio) {
-
-    siteAudio.volume = 0.3;
-
-    /*
-     * Attempt audible autoplay.
-     *
-     * Most browsers will block this unless
-     * the visitor has previously interacted
-     * with the site or granted permission.
-     */
-
-    const autoplayAttempt =
-      siteAudio.play();
-
-    if (autoplayAttempt) {
-
-      autoplayAttempt
-        .then(() => {
-
-          musicStarted = true;
-          updateMusicControl();
-
-        })
-        .catch(() => {
-
-          /*
-           * Browser blocked autoplay.
-           *
-           * Contact Me will start the music
-           * when the visitor clicks it.
-           */
-
-          updateMusicControl();
-
-        });
-    }
-  }
-
-
-  /*
-   * ========================================
-   * CONTACT FORM
-   * ========================================
-   *
-   * Contact Me opens the form.
-   *
-   * The button then disappears because it
-   * is no longer needed.
-   */
-
-  if (toggleBtn && contactWrapper) {
-
-    toggleBtn.addEventListener(
-      'click',
-      () => {
-
-        /*
-         * MUSIC FALLBACK
-         */
-
-        if (
-          siteAudio &&
-          !musicStarted
-        ) {
-
-          siteAudio.play()
-            .then(() => {
-
-              musicStarted = true;
-              updateMusicControl();
-
-            })
-            .catch(() => {
-
-              /*
-               * Music failed to start.
-               * The contact form still opens.
-               */
-
-              updateMusicControl();
-
-            });
-        }
-
-
-        /*
-         * Open the contact form.
-         */
-
-        contactWrapper.classList.add('open');
-
-        toggleBtn.setAttribute(
-          'aria-expanded',
-          'true'
-        );
-
-
-        /*
-         * Hide the Contact Me button.
-         */
-
-        toggleBtn.style.display = 'none';
-
-
-        /*
-         * Focus the name field after the
-         * form animation has started.
-         */
-
-        setTimeout(() => {
-
-          document
-            .getElementById('f-name')
-            ?.focus();
-
-        }, 350);
-
-      }
-    );
-  }
-
-
-  /*
-   * ========================================
-   * MUSIC CONTROL
+   * MUSIC CONTROL DISPLAY
    * ========================================
    */
 
@@ -199,7 +73,121 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /*
    * ========================================
-   * PAUSE / PLAY MUSIC
+   * MUSIC AUTOPLAY
+   * ========================================
+   */
+
+  if (siteAudio) {
+
+    siteAudio.volume = 0.3;
+
+    const autoplayAttempt =
+      siteAudio.play();
+
+    if (autoplayAttempt) {
+
+      autoplayAttempt
+        .then(() => {
+
+          musicStarted = true;
+          updateMusicControl();
+
+        })
+        .catch(() => {
+
+          /*
+           * Autoplay was blocked.
+           * Contact Me will start the music.
+           */
+
+          updateMusicControl();
+
+        });
+    }
+  }
+
+
+  /*
+   * ========================================
+   * CONTACT ME
+   * ========================================
+   */
+
+  if (toggleBtn && contactWrapper) {
+
+    toggleBtn.addEventListener(
+      'click',
+      () => {
+
+        /*
+         * Start music from the user's
+         * click if autoplay was blocked.
+         */
+
+        if (
+          siteAudio &&
+          !musicStarted
+        ) {
+
+          siteAudio.play()
+            .then(() => {
+
+              musicStarted = true;
+              updateMusicControl();
+
+            })
+            .catch(() => {
+
+              updateMusicControl();
+
+            });
+        }
+
+
+        /*
+         * Open the contact form.
+         */
+
+        contactWrapper.classList.add('open');
+
+        toggleBtn.setAttribute(
+          'aria-expanded',
+          'true'
+        );
+
+
+        /*
+         * Hide the Contact Me button.
+         */
+
+        toggleBtn.classList.add('hidden');
+
+
+        /*
+         * Wait for the form to become visible,
+         * then put the cursor in the name field.
+         */
+
+        requestAnimationFrame(() => {
+
+          requestAnimationFrame(() => {
+
+            if (nameField) {
+              nameField.focus();
+            }
+
+          });
+
+        });
+
+      }
+    );
+  }
+
+
+  /*
+   * ========================================
+   * MUSIC PLAY / PAUSE
    * ========================================
    */
 
@@ -235,8 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /*
-     * Keep the control synchronized with
-     * the actual audio state.
+     * Keep music control synchronized.
      */
 
     siteAudio.addEventListener(
@@ -265,8 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
    * ========================================
    * FORM SUBMISSION
    * ========================================
-   *
-   * Prevent accidental double submissions.
    */
 
   if (contactForm) {
@@ -294,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /*
    * ========================================
-   * INITIAL MUSIC CONTROL STATE
+   * INITIAL STATE
    * ========================================
    */
 
