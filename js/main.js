@@ -29,44 +29,76 @@ document.addEventListener('DOMContentLoaded', () => {
   if (musicToggle && siteAudio) {
     siteAudio.volume = 0.3;
 
+    const setMusicState = (playing) => {
+      musicToggle.classList.toggle('playing', playing);
+      musicToggle.setAttribute('aria-pressed', String(playing));
+      musicToggle.setAttribute(
+        'aria-label',
+        playing
+          ? 'Pause background music'
+          : 'Play background music'
+      );
+    };
+
+    /*
+     * Try to autoplay when the page loads.
+     *
+     * Browsers may block audible autoplay.
+     * If they do, the first click on the WIP badge
+     * will start the music.
+     */
+
+    siteAudio.play()
+      .then(() => {
+        setMusicState(true);
+      })
+      .catch((error) => {
+        console.info(
+          'Autoplay was blocked by the browser. Click the WIP badge to start the music.',
+          error
+        );
+
+        setMusicState(false);
+      });
+
+    /*
+     * WIP badge = play / pause
+     */
+
     musicToggle.addEventListener('click', async () => {
       if (siteAudio.paused) {
         try {
           await siteAudio.play();
-
-          musicToggle.classList.add('playing');
-          musicToggle.setAttribute('aria-pressed', 'true');
-          musicToggle.setAttribute(
-            'aria-label',
-            'Pause background music'
-          );
-        } catch {
-          musicToggle.classList.remove('playing');
-          musicToggle.setAttribute('aria-pressed', 'false');
-          musicToggle.setAttribute(
-            'aria-label',
-            'Play background music'
-          );
+          setMusicState(true);
+        } catch (error) {
+          console.error('Unable to play audio:', error);
+          setMusicState(false);
         }
       } else {
         siteAudio.pause();
-
-        musicToggle.classList.remove('playing');
-        musicToggle.setAttribute('aria-pressed', 'false');
-        musicToggle.setAttribute(
-          'aria-label',
-          'Play background music'
-        );
+        setMusicState(false);
       }
     });
 
+    /*
+     * Track finished
+     */
+
     siteAudio.addEventListener('ended', () => {
-      musicToggle.classList.remove('playing');
-      musicToggle.setAttribute('aria-pressed', 'false');
-      musicToggle.setAttribute(
-        'aria-label',
-        'Play background music'
+      setMusicState(false);
+    });
+
+    /*
+     * Audio failed to load
+     */
+
+    siteAudio.addEventListener('error', () => {
+      console.error(
+        'Audio failed to load:',
+        siteAudio.error
       );
+
+      setMusicState(false);
     });
   }
 });
