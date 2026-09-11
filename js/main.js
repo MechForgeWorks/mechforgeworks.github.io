@@ -42,33 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
    * ========================================
    */
 
-  function updateMusicControl() {
+ function updateMusicControl() {
 
-    if (!musicControl || !siteAudio) {
-      return;
-    }
-
-    const playing =
-      !siteAudio.paused &&
-      !siteAudio.ended;
-
-    musicControl.textContent =
-      playing
-        ? 'Pause music'
-        : 'Play music';
-
-    musicControl.setAttribute(
-      'aria-label',
-      playing
-        ? 'Pause background music'
-        : 'Play background music'
-    );
-
-    musicControl.setAttribute(
-      'aria-pressed',
-      String(!playing)
-    );
+  if (!musicControl || !siteAudio) {
+    return;
   }
+
+  const playing =
+    !siteAudio.paused &&
+    !siteAudio.ended;
+
+  musicControl.textContent =
+    playing
+      ? '❚❚'
+      : '▶';
+
+  musicControl.setAttribute(
+    'aria-label',
+    playing
+      ? 'Pause background music'
+      : 'Play background music'
+  );
+
+  musicControl.setAttribute(
+    'aria-pressed',
+    String(!playing)
+  );
+}
 
 
   /*
