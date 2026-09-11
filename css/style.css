@@ -396,3 +396,7 @@ h2 {
     transition: none;
   }
 }
+
+.btn-toggle.hidden {
+  display: none;
+}
