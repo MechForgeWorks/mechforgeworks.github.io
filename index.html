@@ -3,166 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scott Collins - Engineer</title>
-<meta name="description" content="A mechanical and manufacturing engineer in Liverpool, working on how vehicles get built and moving toward the computational side of engineering.">
+<title>Scott Collins - WIP</title>
+<meta name="description" content="Scott Collins - Website under construction.">
 <meta name="theme-color" content="#0E2F49">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:opsz,wght@6..72,300..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Archivo', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at 50% 30%, #1a4971, #0E2F49);
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: #ffffff;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  p {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+</style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-inner">
-    <span class="mark mark-tl" aria-hidden="true"></span>
-    <span class="mark mark-tr" aria-hidden="true"></span>
-    <span class="mark mark-bl" aria-hidden="true"></span>
-    <span class="mark mark-br" aria-hidden="true"></span>
+<main class="card">
+  <h1>Scott Collins</h1>
+  <div class="badge">Work In Progress</div>
+  <p>Something new is coming soon.</p>
+</main>
 
-    <h1 class="name"><span>Scott</span><span>Collins</span><span class="degree">MEng</span></h1>
-
-    <svg class="dim" viewBox="0 0 640 40" role="img" aria-label="Working in engineering since 2018">
-      <g class="dim-lines">
-        <line class="ext" x1="1"   y1="2" x2="1"   y2="30"/>
-        <line class="ext" x1="639" y1="2" x2="639" y2="30"/>
-        <line class="rule" x1="1" y1="18" x2="243" y2="18"/>
-        <line class="rule" x1="397" y1="18" x2="639" y2="18"/>
-        <path class="arrow" d="M1 18 l15 -4 v8 z"/>
-        <path class="arrow" d="M639 18 l-15 -4 v8 z"/>
-      </g>
-      <text class="dim-text" x="320" y="23">2018 — 2026</text>
-    </svg>
-
-    <p class="role">Engineer. Physical systems, manufacturing, and the computational layer behind them.</p>
-  </div>
-</header>
-
-<div class="sheet">
-  <main>
-
-    <p class="lede">
-      I work on how vehicles get made - whether a design can actually be built,
-      what the automated assembly around it has to do, and what needs to change
-      before anyone commits to tooling. Eight years across automotive and
-      off-highway manufacturers.
-    </p>
-
-    <section class="block" aria-labelledby="now">
-      <h2 id="now">What I do</h2>
-
-      <dl class="defs">
-        <dt>Manufacturing feasibility</dt>
-        <dd>
-          Working out whether a design can be built, and what building it will
-          cost, while the design can still change cheaply. Layout, process
-          concepts, and the constraints that come back from the production line.
-        </dd>
-
-        <dt>Automated assembly</dt>
-        <dd>
-          Vehicle body assembly is largely robotic. I work on the equipment and
-          process strategy around it - what the cells need to do, how parts are
-          located and joined, and where a process is likely to fail before it
-          does.
-        </dd>
-
-        <dt>Engineering data and systems</dt>
-        <dd>
-          Working day to day in manufacturing systems - NX, Teamcenter, 3DX.
-          Reviewing design and process data so problems surface on a screen 
-          instead of on a production line. Catching things early is almost 
-          the entire value of the job.
-        </dd>
-      </dl>
-    </section>
-
-    <section class="block next" aria-labelledby="heading">
-      <h2 id="heading">Where I'm heading</h2>
-      <p>
-        The problems I find most interesting here are increasingly
-        computational - simulation, machine learning applied to process and
-        quality data, and closing the loop between what a model predicts and
-        what a line actually does. My experience is on the physical side of
-        that boundary. I'm deliberately building the other side: learning
-        Python, getting properly fluent with engineering data, and working out
-        where machine learning earns its place in manufacturing. A direction
-        I'm moving in, rather than one I've arrived at.
-      </p>
-    </section>
-
-    <section class="block" aria-labelledby="background">
-  <h2 id="background">Background</h2>
-
-  <ul class="history">
-    <li>
-      <span class="org">Jaguar Land Rover</span>
-      <span class="detail">Manufacturing Process Engineer</span>
-      <span class="years">2023 -</span>
-    </li>
-    <li>
-      <span class="org">JCB Transmissions</span>
-      <span class="detail">Engineering</span>
-      <span class="years">2018 - 2023</span>
-    </li>
-    <li>
-      <span class="org">Liverpool John Moores University</span>
-      <span class="detail">MEng Mechanical Engineering, First Class Honours</span>
-      <span class="years">2013 - 2018</span>
-    </li>
-  </ul>
-</section>
-    
-    <section class="block contact" aria-labelledby="contact-h">
-      <h2 id="contact-h">Get in touch</h2>
-
-      <div class="panel">
-        <p class="contact-note">
-          Open to conversations about engineering work, particularly anything
-          sitting between the physical and the computational. I read everything
-          that comes through here.
-        </p>
-
-        <form id="contact-form" action="https://formspree.io/f/mbgjzpvz" method="POST">
-          <p class="field">
-            <label for="f-name">Your name</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required>
-          </p>
-
-          <p class="field">
-            <label for="f-email">Email</label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required>
-          </p>
-
-          <p class="field">
-            <label for="f-msg">Message</label>
-            <textarea id="f-msg" name="message" rows="5" required></textarea>
-          </p>
-
-          <p class="hp" aria-hidden="true">
-            <label for="f-co">Company</label>
-            <input id="f-co" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
-          </p>
-
-          <div class="submit-row">
-            <button type="submit">Send message</button>
-            <span class="status" role="status" aria-live="polite"></span>
-          </div>
-        </form>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <p class="place">Liverpool, United Kingdom</p>
-    <ul class="links">
-      <li><a href="https://www.linkedin.com/in/scott-c-8167a743">LinkedIn</a></li>
-    </ul>
-  </footer>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
