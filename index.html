@@ -1,24 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
+<meta
+ http-equiv="Content-Security-Policy"
+ content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
 
-  <meta
-    name="referrer"
-    content="strict-origin-when-cross-origin">
+<meta
+ name="referrer"
+ content="strict-origin-when-cross-origin">
 
-  <meta
-    name="description"
-    content="Scott Collins - Website under construction.">
+<meta
+ name="description"
+ content="Scott Collins - Website under construction.">
 
-  <meta
-    name="theme-color"
-    content="#0E2F49">
+<meta
+ name="theme-color"
+ content="#0E2F49">
 
   <title>Scott Collins</title>
 
@@ -29,30 +30,28 @@
 
   <link
     rel="stylesheet"
-    href="css/style.css?v=4">
+    href="css/style.css?v=5">
 
   <script
-    src="js/main.js?v=4"
+    src="js/main.js?v=5"
     defer></script>
+
 </head>
 
 <body>
 
   <main class="card">
 
-    <h1>Scott Collins MEng</h1>
+```
+<h1>Scott Collins MEng</h1>
 
-    <h2>Engineer</h2>
+<h2>Engineer</h2>
 
-    <!--
-      WIP is intentionally just a visual badge.
-      It is no longer a music control.
-    -->
-    <span class="badge">
-      Work In Progress
-    </span>
+<span class="badge">
+  Work In Progress
+</span>
 
-    <div>
+<div>
   <button
     type="button"
     class="btn-toggle"
@@ -107,6 +106,7 @@
         required></textarea>
     </p>
 
+    <!-- Honeypot spam protection -->
     <p
       class="hp"
       aria-hidden="true">
@@ -137,60 +137,26 @@
     type="button"
     class="music-control"
     id="music-control"
-    aria-label="Pause background music">
+    aria-label="Pause background music"
+    aria-pressed="false">
     Pause music
   </button>
 
 </div>
-
-        <!-- Honeypot spam protection -->
-        <p
-          class="hp"
-          aria-hidden="true">
-
-          <label for="f-co">Company</label>
-
-          <input
-            id="f-co"
-            name="_gotcha"
-            type="text"
-            tabindex="-1"
-            autocomplete="off">
-        </p>
-
-        <div class="submit-row">
-
-          <button
-            type="submit"
-            class="submit-btn">
-            Send Message
-          </button>
-
-        </div>
-
-      </form>
-
-    </div>
+```
 
   </main>
 
+<audio
+ id="site-audio"
+ autoplay
+ preload="auto">
 
-  <!--
-    Background music.
-
-    We ask the browser to autoplay.
-    Audible autoplay remains subject to
-    the browser's autoplay policy.
-  -->
-
-  <audio
-    id="site-audio"
-    autoplay
-    preload="auto">
-
-    <source
-      src="audio/downtempo-inspiring-hip-hop.mp3"
-      type="audio/mpeg">
+```
+<source
+  src="audio/downtempo-inspiring-hip-hop.mp3"
+  type="audio/mpeg">
+```
 
   </audio>
 
