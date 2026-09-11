@@ -53,9 +53,13 @@ h2 {
   margin-bottom: 1rem;
 }
 
+/* WIP / Music Button */
+
 .badge {
+  appearance: none;
   display: inline-block;
   padding: 0.35rem 0.85rem;
+  font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -65,6 +69,40 @@ h2 {
   border-radius: 20px;
   margin-bottom: 0.5rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.badge:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.badge:active {
+  transform: scale(0.98);
+}
+
+.badge.playing {
+  animation: music-pulse 2s ease-in-out infinite;
+}
+
+.badge.playing::after {
+  content: " ♪";
+  margin-left: 0.25rem;
+}
+
+@keyframes music-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
 }
 
 /* Contact Button */
@@ -76,6 +114,7 @@ h2 {
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0.65rem 1.25rem;
   border-radius: 8px;
+  font-family: inherit;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -92,7 +131,10 @@ h2 {
   transform: scale(0.98);
 }
 
+/* Keyboard Focus */
+
 .btn-toggle:focus-visible,
+.badge:focus-visible,
 .submit-btn:focus-visible,
 .field input:focus-visible,
 .field textarea:focus-visible {
@@ -170,6 +212,7 @@ h2 {
   border: none;
   padding: 0.75rem;
   border-radius: 6px;
+  font-family: inherit;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
@@ -189,4 +232,19 @@ h2 {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/* Reduced Motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .badge.playing {
+    animation: none;
+  }
+
+  .badge,
+  .btn-toggle,
+  .submit-btn,
+  .form-wrapper {
+    transition: none;
+  }
 }
