@@ -1,3 +1,76 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      #1a4971,
+      #0E2F49
+    );
+
+  color: #e2e8f0;
+
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 1.5rem;
+}
+
+.card {
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 16px;
+
+  padding: 3rem 2rem;
+
+  max-width: 440px;
+  width: 100%;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3);
+
+  transition:
+    all 0.3s ease;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
 .badge {
   display: inline-block;
 
@@ -16,4 +89,209 @@
   color: #94a3b8;
 
   margin-bottom: 0.5rem;
+}
+
+.btn-toggle {
+  margin-top: 0.5rem;
+
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+
+  padding: 0.65rem 1.25rem;
+
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-toggle:active {
+  transform: scale(0.98);
+}
+
+.btn-toggle:focus-visible,
+.submit-btn:focus-visible,
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline:
+    2px solid #60a5fa;
+
+  outline-offset: 2px;
+}
+
+.form-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  text-align: left;
+
+  transition:
+    max-height 0.4s cubic-bezier(0, 1, 0, 1),
+    opacity 0.3s ease,
+    margin-top 0.3s ease;
+}
+
+.form-wrapper.open {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 1.25rem;
+
+  transition:
+    max-height 0.5s ease-in-out,
+    opacity 0.4s ease 0.1s,
+    margin-top 0.3s ease;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+
+  font-size: 0.75rem;
+  color: #cbd5e1;
+
+  margin-bottom: 0.35rem;
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+
+  padding: 0.65rem 0.85rem;
+
+  background: rgba(0, 0, 0, 0.25);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.9rem;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #60a5fa;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn {
+  width: 100%;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 6px;
+
+  padding: 0.75rem;
+
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  cursor: pointer;
+
+  margin-top: 0.5rem;
+
+  transition:
+    background 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.music-control {
+  display: block;
+
+  margin: 1rem auto 0;
+
+  padding: 0.4rem 0.75rem;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  border: none;
+
+  font-family: inherit;
+
+  font-size: 0.75rem;
+
+  font-weight: 500;
+
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  opacity: 0.8;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.music-control:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.music-control:focus-visible {
+  outline:
+    2px solid #60a5fa;
+
+  outline-offset: 3px;
+
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-toggle,
+  .submit-btn,
+  .form-wrapper,
+  .music-control {
+    transition: none;
+  }
 }
