@@ -56,92 +56,51 @@ body {
     all 0.3s ease;
 }
 
-
-/* ========================================
-   HEADINGS
-   ======================================== */
-
 h1 {
   font-size: 2rem;
   font-weight: 600;
-
   letter-spacing: -0.02em;
-
   margin-bottom: 0.25rem;
-
   color: #ffffff;
 }
 
 h2 {
   font-size: 1.1rem;
   font-weight: 400;
-
   color: #94a3b8;
-
   margin-bottom: 1rem;
 }
-
-
-/* ========================================
-   WIP BADGE
-   ======================================== */
 
 .badge {
   display: inline-block;
 
-  padding:
-    0.35rem
-    0.85rem;
+  padding: 0.25rem 0;
 
   font-family: inherit;
-
-  font-size: 0.8rem;
-
+  font-size: 0.75rem;
   font-weight: 600;
 
   letter-spacing: 0.08em;
-
   text-transform: uppercase;
 
-  background:
-    rgba(255, 255, 255, 0.1);
-
   color: #94a3b8;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.08);
-
-  border-radius: 20px;
 
   margin-bottom: 0.5rem;
 }
 
-
-/* ========================================
-   CONTACT BUTTON
-   ======================================== */
-
 .btn-toggle {
   margin-top: 0.5rem;
 
-  background:
-    rgba(255, 255, 255, 0.1);
-
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 
-  border:
-    1px solid rgba(255, 255, 255, 0.2);
-
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
 
-  padding:
-    0.65rem
-    1.25rem;
+  padding: 0.65rem 1.25rem;
 
   font-family: inherit;
-
   font-size: 0.85rem;
-
   font-weight: 600;
 
   cursor: pointer;
@@ -152,44 +111,28 @@ h2 {
 }
 
 .btn-toggle:hover {
-  background:
-    rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .btn-toggle:active {
   transform: scale(0.98);
 }
 
-
-/* ========================================
-   KEYBOARD FOCUS
-   ======================================== */
-
 .btn-toggle:focus-visible,
 .submit-btn:focus-visible,
 .field input:focus-visible,
 .field textarea:focus-visible {
-
   outline:
     2px solid #60a5fa;
 
   outline-offset: 2px;
 }
 
-
-/* ========================================
-   FORM CONTAINER
-   ======================================== */
-
 .form-wrapper {
   max-height: 0;
-
   overflow: hidden;
-
   opacity: 0;
-
   margin-top: 0;
-
   text-align: left;
 
   transition:
@@ -200,9 +143,7 @@ h2 {
 
 .form-wrapper.open {
   max-height: 600px;
-
   opacity: 1;
-
   margin-top: 1.25rem;
 
   transition:
@@ -210,11 +151,6 @@ h2 {
     opacity 0.4s ease 0.1s,
     margin-top 0.3s ease;
 }
-
-
-/* ========================================
-   FORM FIELDS
-   ======================================== */
 
 .field {
   margin-bottom: 1rem;
@@ -224,37 +160,28 @@ h2 {
   display: block;
 
   font-size: 0.75rem;
-
   color: #cbd5e1;
 
   margin-bottom: 0.35rem;
 
   text-transform: uppercase;
-
   letter-spacing: 0.05em;
 }
 
 .field input,
 .field textarea {
-
   width: 100%;
 
-  padding:
-    0.65rem
-    0.85rem;
+  padding: 0.65rem 0.85rem;
 
-  background:
-    rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.25);
 
-  border:
-    1px solid rgba(255, 255, 255, 0.15);
-
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
 
   color: #ffffff;
 
   font-family: inherit;
-
   font-size: 0.9rem;
 
   outline: none;
@@ -270,33 +197,22 @@ h2 {
 
 .field textarea {
   resize: vertical;
-
   min-height: 100px;
 }
 
-
-/* ========================================
-   SUBMIT BUTTON
-   ======================================== */
-
 .submit-btn {
-
   width: 100%;
 
   background: #2563eb;
-
   color: #ffffff;
 
   border: none;
-
   border-radius: 6px;
 
   padding: 0.75rem;
 
   font-family: inherit;
-
   font-weight: 600;
-
   font-size: 0.9rem;
 
   cursor: pointer;
@@ -311,27 +227,18 @@ h2 {
   background: #1d4ed8;
 }
 
-
-/* ========================================
-   HONEYPOT
-   ======================================== */
-
-.hp {
-
-  position: absolute;
-
-  left: -10000px;
-
-  width: 1px;
-  height: 1px;
-
-  overflow: hidden;
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-
-/* ========================================
-   MUSIC CONTROL
-   ======================================== */
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 .music-control {
   display: block;
@@ -378,25 +285,10 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
+  .btn-toggle,
+  .submit-btn,
+  .form-wrapper,
   .music-control {
     transition: none;
   }
-}
-
-/* ========================================
-   REDUCED MOTION
-   ======================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .btn-toggle,
-  .submit-btn,
-  .form-wrapper {
-    transition: none;
-  }
-}
-
-.btn-toggle.hidden {
-  display: none;
 }
