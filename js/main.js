@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   musicControl.textContent =
     playing
-      ? '❚❚'
-      : '▶';
+      ? 'Pause Music ❚❚'
+      : 'Play Music ▶';
 
   musicControl.setAttribute(
     'aria-label',
