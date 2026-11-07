@@ -1,294 +1,473 @@
+/* ---------- Tokens ---------- */
+
+:root {
+  --bg: #0d0e10;
+  --bg-lift: #1b1d21;
+  --ink: #f4f4f5;
+  --muted: #a1a1aa;
+  --faint: #71717a;
+  --edge: rgba(255, 255, 255, 0.1);
+  --panel: #141518;
+  --field: #0d0e10;
+  --accent: #f97316;      /* the robot's orange */
+  --accent-hover: #fb923c;
+  --accent-ink: #1c0f05;
+  --focus: #fdba74;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      120% 90% at 50% 30%,
+      var(--bg-lift) 0%,
+      var(--bg) 70%
+    );
+
+  color: var(--ink);
+
   font-family:
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
+    Inter,
     sans-serif;
 
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      #1a4971,
-      #0E2F49
-    );
+  -webkit-font-smoothing: antialiased;
+}
 
-  color: #e2e8f0;
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ---------- The line (canvas behind everything) ---------- */
+
+.line {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+/* ---------- Page layout: name top left, actions bottom right ---------- */
+
+.page {
+  position: relative;
+  z-index: 1;
 
   min-height: 100vh;
+  min-height: 100dvh;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  padding:
+    clamp(28px, 7vh, 88px)
+    clamp(20px, 6vw, 96px);
+}
+
+.intro {
+  grid-row: 1;
+
+  max-width: 34rem;
+}
+
+.intro h1 {
+  font-size: clamp(36px, 5.2vw, 64px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+.post {
+  margin-left: 0.15em;
+
+  font-size: 0.4em;
+  font-weight: 500;
+  letter-spacing: 0;
+
+  color: var(--muted);
+}
+
+.intro p {
+  margin-top: 16px;
+
+  font-size: clamp(15px, 1.35vw, 18px);
+  line-height: 1.55;
+
+  color: var(--muted);
+}
+
+.actions {
+  grid-row: 3;
+  justify-self: end;
 
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  padding: 1.5rem;
+  gap: 10px 18px;
 }
 
-.card {
-  background:
-    rgba(255, 255, 255, 0.04);
+.cta {
+  display: inline-flex;
+  align-items: center;
 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 14px 24px;
 
-  border:
-    1px solid rgba(255, 255, 255, 0.1);
+  background: var(--accent);
+  color: var(--accent-ink);
 
-  border-radius: 16px;
+  border-radius: 999px;
 
-  padding: 3rem 2rem;
-
-  max-width: 440px;
-  width: 100%;
-
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.3);
-
-  transition:
-    all 0.3s ease;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.25rem;
-  color: #ffffff;
-}
-
-h2 {
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: #94a3b8;
-  margin-bottom: 1rem;
-}
-
-.badge {
-  display: inline-block;
-
-  padding: 0.25rem 0;
-
-  font-family: inherit;
-  font-size: 0.75rem;
-  font-weight: 600;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
-  color: #94a3b8;
-
-  margin-bottom: 0.5rem;
-}
-
-.btn-toggle {
-  margin-top: 0.5rem;
-
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-
-  padding: 0.65rem 1.25rem;
-
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-
-  cursor: pointer;
+  font-size: 15px;
+  font-weight: 650;
+  text-decoration: none;
 
   transition:
     background 0.2s ease,
     transform 0.1s ease;
 }
 
-.btn-toggle:hover {
-  background: rgba(255, 255, 255, 0.2);
+.cta:hover {
+  background: var(--accent-hover);
 }
 
-.btn-toggle:active {
+.cta:active {
   transform: scale(0.98);
 }
 
-.btn-toggle:focus-visible,
-.submit-btn:focus-visible,
-.field input:focus-visible,
-.field textarea:focus-visible {
-  outline:
-    2px solid #60a5fa;
+.music {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-  outline-offset: 2px;
+  padding: 12px 6px;
+
+  background: none;
+  color: var(--muted);
+
+  border: 0;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
 }
 
-.form-wrapper {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  margin-top: 0;
-  text-align: left;
-
-  transition:
-    max-height 0.4s cubic-bezier(0, 1, 0, 1),
-    opacity 0.3s ease,
-    margin-top 0.3s ease;
+.music:hover,
+.music[aria-pressed="true"] {
+  color: var(--ink);
 }
 
-.form-wrapper.open {
-  max-height: 600px;
-  opacity: 1;
-  margin-top: 1.25rem;
+.music .icon {
+  width: 12px;
+  height: 12px;
+
+  fill: currentColor;
+}
+
+.music .icon-pause,
+.music[aria-pressed="true"] .icon-play {
+  display: none;
+}
+
+.music[aria-pressed="true"] .icon-pause {
+  display: block;
+
+  fill: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .actions {
+    justify-self: start;
+    flex-direction: row-reverse;
+  }
+}
+
+/* ---------- Contact panel ---------- */
+
+.contact {
+  position: fixed;
+  inset: 0 0 0 auto;
+
+  width: min(440px, 100%);
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+
+  overflow-y: auto;
+
+  background: var(--panel);
+  color: var(--ink);
+
+  border: 0;
+  border-left: 1px solid var(--edge);
+}
+
+.contact[open] {
+  animation: panel-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.contact::backdrop {
+  background: rgba(5, 6, 8, 0.55);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+}
+
+.sheet {
+  min-height: 100%;
+
+  padding: 28px 28px 36px;
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.sheet-head h2 {
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+
+  color: var(--muted);
+
+  border-radius: 999px;
 
   transition:
-    max-height 0.5s ease-in-out,
-    opacity 0.4s ease 0.1s,
-    margin-top 0.3s ease;
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+}
+
+.close svg {
+  width: 16px;
+  height: 16px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
 }
 
 .field {
-  margin-bottom: 1rem;
+  margin-bottom: 18px;
 }
 
 .field label {
   display: block;
 
-  font-size: 0.75rem;
-  color: #cbd5e1;
+  margin-bottom: 7px;
 
-  margin-bottom: 0.35rem;
+  font-size: 13px;
+  font-weight: 500;
 
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--muted);
 }
 
 .field input,
 .field textarea {
   width: 100%;
 
-  padding: 0.65rem 0.85rem;
+  padding: 12px 14px;
 
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--field);
+  color: var(--ink);
 
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-
-  color: #ffffff;
+  border: 1px solid var(--edge);
+  border-radius: 10px;
 
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 15px;
 
-  outline: none;
-
-  transition:
-    border-color 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 .field input:focus,
 .field textarea:focus {
-  border-color: #60a5fa;
+  border-color: var(--accent);
+  outline: none;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .field textarea {
+  min-height: 130px;
+
   resize: vertical;
-  min-height: 100px;
 }
 
-.submit-btn {
+.send {
   width: 100%;
 
-  background: #2563eb;
-  color: #ffffff;
+  margin-top: 6px;
+  padding: 14px;
 
-  border: none;
-  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-ink);
 
-  padding: 0.75rem;
+  border: 0;
+  border-radius: 10px;
 
   font-family: inherit;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 15px;
+  font-weight: 650;
 
   cursor: pointer;
 
-  margin-top: 0.5rem;
-
-  transition:
-    background 0.2s ease;
+  transition: background 0.2s ease;
 }
 
-.submit-btn:hover {
-  background: #1d4ed8;
+.send:hover {
+  background: var(--accent-hover);
 }
 
-.submit-btn:disabled {
+.send:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Stays in the page (empty) so screen readers announce updates */
+.form-status {
+  margin-top: 14px;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: var(--ink);
+
+  text-wrap: pretty;
+}
+
+.form-status:empty {
+  margin-top: 0;
+}
+
+.form-note {
+  margin-top: 14px;
+
+  font-size: 13px;
+
+  color: var(--faint);
 }
 
 .hp {
   position: absolute;
   left: -10000px;
+
   width: 1px;
   height: 1px;
+
   overflow: hidden;
 }
 
-.music-control {
-  display: block;
+@media (max-width: 600px) {
+  .contact {
+    inset: auto 0 0 0;
 
-  margin: 1rem auto 0;
+    width: 100%;
+    height: auto;
+    max-height: 92vh;
+    max-height: 92dvh;
 
-  padding: 0.4rem 0.75rem;
+    border-left: 0;
+    border-top: 1px solid var(--edge);
+    border-radius: 18px 18px 0 0;
+  }
 
-  background: transparent;
+  .contact[open] {
+    animation-name: sheet-up;
+  }
 
-  color: #94a3b8;
-
-  border: none;
-
-  font-family: inherit;
-
-  font-size: 0.75rem;
-
-  font-weight: 500;
-
-  letter-spacing: 0.03em;
-
-  cursor: pointer;
-
-  opacity: 0.8;
-
-  transition:
-    color 0.2s ease,
-    opacity 0.2s ease;
+  .sheet {
+    padding: 22px 20px 28px;
+  }
 }
 
-.music-control:hover {
-  color: #ffffff;
-  opacity: 1;
+@keyframes sheet-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
 }
 
-.music-control:focus-visible {
-  outline:
-    2px solid #60a5fa;
+/* ---------- 404 and other simple pages ---------- */
 
-  outline-offset: 3px;
+.page-simple {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+}
 
-  border-radius: 4px;
+.page-simple .actions {
+  justify-self: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-toggle,
-  .submit-btn,
-  .form-wrapper,
-  .music-control {
+  .cta,
+  .send,
+  .music,
+  .close,
+  .field input,
+  .field textarea {
     transition: none;
+  }
+
+  .contact[open] {
+    animation: none;
   }
 }

@@ -1,0 +1,33 @@
+# Cloudflare Pages response headers
+# https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Keep this file next to index.html. Cloudflare reads it on deploy; it is not
+# served as a page. Check the result at https://securityheaders.com
+#
+# CSP notes
+# - Only your own files can load. The form may talk to Formspree only.
+# - frame-ancestors stops other sites putting yours in an iframe (clickjacking).
+#   It only works as a header, which is why the CSP moved out of index.html.
+# - Trusted Types makes the browser refuse innerHTML-style code, which is how
+#   DOM XSS happens. main.js doesn't use any. If you add a script that does,
+#   it will be blocked and logged in the console.
+# - Adding Cloudflare Web Analytics? Add static.cloudflareinsights.com to
+#   script-src and https://cloudflareinsights.com to connect-src.
+#
+# HSTS: includeSubDomains assumes every subdomain of scottcollins.uk is
+# HTTPS (true if they all go through Cloudflare). Don't add "preload" unless
+# you're sure: it is very hard to undo.
+
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src https://formspree.io; form-action https://formspree.io; base-uri 'none'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  ! Access-Control-Allow-Origin
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

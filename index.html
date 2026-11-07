@@ -9,25 +9,26 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0">
 
-  <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; object-src 'none';">
-
-  <meta
-    name="referrer"
-    content="strict-origin-when-cross-origin">
+  <!--
+    The Content-Security-Policy and other security headers come
+    from the _headers file (Cloudflare sends them as real HTTP headers).
+  -->
 
   <meta
     name="description"
-    content="Scott Collins MEng. Personal portfolio">
+    content="Scott Collins MEng. Mechanical engineer, UK.">
 
   <meta
     name="author"
     content="Scott Collins">
 
   <meta
+    name="color-scheme"
+    content="dark">
+
+  <meta
     name="theme-color"
-    content="#0E2F49">
+    content="#0d0e10">
 
   <meta
     property="og:title"
@@ -35,7 +36,7 @@
 
   <meta
     property="og:description"
-    content="Personal portfolio">
+    content="Mechanical engineer, UK.">
 
   <meta
     property="og:type"
@@ -60,6 +61,12 @@
     rel="stylesheet"
     href="css/style.css">
 
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="css/noscript.css">
+  </noscript>
+
   <script
     src="js/main.js"
     defer></script>
@@ -68,28 +75,80 @@
 
 <body>
 
-  <main class="card">
+  <!-- The production line animation (drawn by js/main.js) -->
+  <canvas class="line" id="line" aria-hidden="true"></canvas>
 
-    <h1>Scott Collins MEng</h1>
+  <main class="page">
 
-    <span class="badge">
-      Website Under Development
-    </span>
+    <div class="intro">
 
-    <div>
-      <button
-        type="button"
-        class="btn-toggle"
-        id="toggle-btn"
-        aria-expanded="false"
-        aria-controls="contact-wrapper">
-        Contact Me
-      </button>
+      <h1>
+        Scott Collins
+        <span class="post">MEng</span>
+      </h1>
+
+      <p>
+        Mechanical engineer, UK.<br>
+        Design, then quality, now manufacturing.
+      </p>
+
     </div>
 
-    <div
-      class="form-wrapper"
-      id="contact-wrapper">
+    <div class="actions">
+
+      <button
+        type="button"
+        class="music"
+        id="music"
+        aria-pressed="false">
+
+        <svg class="icon icon-play" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M4 2.5v11l9-5.5z"/>
+        </svg>
+
+        <svg class="icon icon-pause" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M4 2.5h3v11H4zM9 2.5h3v11H9z"/>
+        </svg>
+
+        Music
+
+      </button>
+
+      <a
+        class="cta"
+        id="open-contact"
+        href="#contact">
+        Get in touch
+      </a>
+
+    </div>
+
+  </main>
+
+  <dialog
+    class="contact"
+    id="contact"
+    aria-labelledby="contact-title">
+
+    <div class="sheet">
+
+      <div class="sheet-head">
+
+        <h2 id="contact-title">Get in touch</h2>
+
+        <a
+          class="close"
+          id="close-contact"
+          href="#"
+          aria-label="Close">
+
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/>
+          </svg>
+
+        </a>
+
+      </div>
 
       <form
         id="contact-form"
@@ -97,9 +156,7 @@
         method="POST">
 
         <p class="field">
-          <label for="f-name">
-            Your name
-          </label>
+          <label for="f-name">Your name</label>
 
           <input
             id="f-name"
@@ -111,9 +168,7 @@
         </p>
 
         <p class="field">
-          <label for="f-email">
-            Email
-          </label>
+          <label for="f-email">Email</label>
 
           <input
             id="f-email"
@@ -125,29 +180,25 @@
         </p>
 
         <p class="field">
-          <label for="f-msg">
-            Message
-          </label>
+          <label for="f-msg">Message</label>
 
           <textarea
             id="f-msg"
             name="message"
-            rows="4"
+            rows="5"
             maxlength="3000"
             required></textarea>
         </p>
 
-        <!-- Honeypot spam protection -->
+        <!-- Honeypot spam protection: hidden from people, bots fill it in -->
         <p
           class="hp"
           aria-hidden="true">
 
-          <label for="f-co">
-            Company
-          </label>
+          <label for="f-hp">Leave this field empty</label>
 
           <input
-            id="f-co"
+            id="f-hp"
             name="_gotcha"
             type="text"
             tabindex="-1"
@@ -155,35 +206,31 @@
 
         </p>
 
-        <div class="submit-row">
+        <button
+          type="submit"
+          class="send">
+          Send message
+        </button>
 
-          <button
-            type="submit"
-            class="submit-btn">
-            Send Message
-          </button>
+        <p
+          class="form-status"
+          id="form-status"
+          role="status"></p>
 
-        </div>
+        <p class="form-note">
+          Sent via Formspree and used only to reply.
+        </p>
 
       </form>
 
-      <button
-        type="button"
-        class="music-control"
-        id="music-control"
-        aria-label="Play background music"
-        aria-pressed="true">
-        ▶
-      </button>
-
     </div>
 
-  </main>
+  </dialog>
 
   <audio
     id="site-audio"
-    autoplay
-    preload="auto">
+    preload="none"
+    loop>
 
     <source
       src="audio/downtempo-inspiring-hip-hop.mp3"
