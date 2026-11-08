@@ -36,7 +36,7 @@
 
   <meta
     property="og:description"
-    content="Mechanical engineer, UK.">
+    content="Mechanical engineer, UK. Started in design, moved into quality, now in manufacturing.">
 
   <meta
     property="og:type"
@@ -46,6 +46,30 @@
     property="og:url"
     content="https://scottcollins.uk/">
 
+  <meta
+    property="og:image"
+    content="https://scottcollins.uk/og-image.jpg">
+
+  <meta
+    property="og:image:width"
+    content="1200">
+
+  <meta
+    property="og:image:height"
+    content="630">
+
+  <meta
+    property="og:image:alt"
+    content="Scott Collins MEng, with a small production line where a part is designed, inspected and welded by a robot.">
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+  <meta
+    name="robots"
+    content="index, follow, noai, noimageai">
+
   <title>Scott Collins MEng</title>
 
   <link
@@ -54,8 +78,18 @@
 
   <link
     rel="icon"
+    href="favicon-32.png"
+    sizes="32x32"
+    type="image/png">
+
+  <link
+    rel="icon"
     href="favicon.svg"
     type="image/svg+xml">
+
+  <link
+    rel="apple-touch-icon"
+    href="apple-touch-icon.png">
 
   <link
     rel="stylesheet"
@@ -70,6 +104,18 @@
   <script
     src="js/main.js"
     defer></script>
+
+  <!-- For search engines: name, title and address only, nothing more -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Scott Collins",
+      "honorificSuffix": "MEng",
+      "jobTitle": "Mechanical engineer",
+      "url": "https://scottcollins.uk/"
+    }
+  </script>
 
 </head>
 
@@ -89,30 +135,17 @@
 
       <p>
         Mechanical engineer, UK.<br>
-        Design, then quality, now manufacturing.
+        Started in design, moved into quality, now in manufacturing.<br>
+        Currently seconded to a launch project.
       </p>
 
     </div>
 
+    <div class="bottom">
+
+    <p class="legal">&copy; 2026 Scott Collins</p>
+
     <div class="actions">
-
-      <button
-        type="button"
-        class="music"
-        id="music"
-        aria-pressed="false">
-
-        <svg class="icon icon-play" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M4 2.5v11l9-5.5z"/>
-        </svg>
-
-        <svg class="icon icon-pause" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M4 2.5h3v11H4zM9 2.5h3v11H9z"/>
-        </svg>
-
-        Music
-
-      </button>
 
       <a
         class="cta"
@@ -120,6 +153,8 @@
         href="#contact">
         Get in touch
       </a>
+
+    </div>
 
     </div>
 
@@ -136,6 +171,26 @@
 
         <h2 id="contact-title">Get in touch</h2>
 
+        <div class="sheet-tools">
+
+        <button
+          type="button"
+          class="music"
+          id="music"
+          aria-pressed="false">
+
+          <svg class="icon icon-play" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4 2.5v11l9-5.5z"/>
+          </svg>
+
+          <svg class="icon icon-pause" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4 2.5h3v11H4zM9 2.5h3v11H9z"/>
+          </svg>
+
+          Music
+
+        </button>
+
         <a
           class="close"
           id="close-contact"
@@ -148,12 +203,35 @@
 
         </a>
 
+        </div>
+
       </div>
 
       <form
         id="contact-form"
         action="https://formspree.io/f/mbgjzpvz"
         method="POST">
+
+        <fieldset class="field topics">
+          <legend>What's it about?</legend>
+
+          <div class="chips">
+            <label class="chip">
+              <input type="radio" name="topic" value="Work" required>
+              <span>Work</span>
+            </label>
+
+            <label class="chip">
+              <input type="radio" name="topic" value="CV request">
+              <span>CV request</span>
+            </label>
+
+            <label class="chip">
+              <input type="radio" name="topic" value="Just saying hi">
+              <span>Just saying hi</span>
+            </label>
+          </div>
+        </fieldset>
 
         <p class="field">
           <label for="f-name">Your name</label>

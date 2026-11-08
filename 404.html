@@ -22,18 +22,39 @@
   <!-- Absolute paths: this page is served for any missing URL, at any depth -->
   <link
     rel="icon"
+    href="/favicon-32.png"
+    sizes="32x32"
+    type="image/png">
+
+  <link
+    rel="icon"
     href="/favicon.svg"
     type="image/svg+xml">
+
+  <link
+    rel="apple-touch-icon"
+    href="/apple-touch-icon.png">
 
   <link
     rel="stylesheet"
     href="/css/style.css">
 
+  <meta
+    name="robots"
+    content="noindex">
+
+  <script
+    src="/js/main.js"
+    defer></script>
+
 </head>
 
-<body>
+<body data-line="stopped">
 
-  <main class="page page-simple">
+  <!-- The same line as the homepage, stopped, with its warning light on -->
+  <canvas class="line" id="line" aria-hidden="true"></canvas>
+
+  <main class="page">
 
     <div class="intro">
 
@@ -43,8 +64,14 @@
 
     </div>
 
-    <div class="actions">
-      <a class="cta" href="/">Back to the homepage</a>
+    <div class="bottom">
+
+      <p class="legal">Error 404</p>
+
+      <div class="actions">
+        <a class="cta" href="/">Back to the homepage</a>
+      </div>
+
     </div>
 
   </main>
